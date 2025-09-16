@@ -1,4 +1,4 @@
-mport cv2
+import cv2
 import numpy as np
 import tensorflow as tf
 import mediapipe as mp
@@ -146,3 +146,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
