@@ -2,10 +2,8 @@
 
 | 學期 | 112學年度第2學期 | 授課教師 | 李棟村 |
 | --- | --- | --- | --- |
-| 學號 | B1121004
-B1142050 
- | 姓名 | 蔡毅
-吳聿鎧
+| 學號 | B1121004 | 姓名 | 蔡毅  |
+         B1142050         吳聿鎧 |
  |
 1. 專題題目：寶寶安全相機
 2. 功能：主要就是可以偵測人臉的部位,利用樹梅派相機模組,抓取嬰幼兒臉部部分，眼睛、鼻子等部位,判斷出危險時自動發出警訊，例如：臉被遮住。
@@ -13,7 +11,7 @@ B1142050
 4. 技術使用：Python、OpenCV、mediapipe及GPIO
 5. 系統架構流程圖：使用Python語法程式，主要函式庫為OpenCV、mediapipe及TensorFlow Lite
 
-![image.png](attachment:db8684e7-841d-4b29-851e-44b0ecb11b9a:image.png)
+<img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/2b902006-f9f1-45f5-a272-f27a7e78e785" />
 
 1. 軟硬體設計：樹莓派、相機、LED、蜂鳴器
 2. 環境安裝、執行步驟：
@@ -95,9 +93,9 @@ pip list
 
 ## **步驟 9：**建立影像訓練集
 
-- 到https://teachablemachine.withgoogle.com/官網
+- 到[https://teachablemachine.withgoogle.com/官網](https://teachablemachine.withgoogle.com/train)
 
-![image.png](attachment:d648deb5-2c17-4091-84fb-d0f7d44a571b:image.png)
+<img width="684" height="595" alt="image (1)" src="https://github.com/user-attachments/assets/002412c6-689d-4d2e-8a2d-011de87bbd8a" />
 
 - 訓練與匯出模型
 - 下載訓練好的模型
@@ -117,27 +115,27 @@ python3 face.py
 
 (1)訓練模型畫面：
 
-![Screenshot 2025-05-21 203258.png](attachment:3f206146-42ce-481d-8193-0c15a5dcb508:Screenshot_2025-05-21_203258.png)
+<img width="391" height="847" alt="Screenshot 2025-05-21 203258" src="https://github.com/user-attachments/assets/59928b3c-6856-4c82-89cf-4f024c33e444" />
 
               臉沒被遮住
 
-![Screenshot 2025-05-21 203245.png](attachment:fa6f9204-9068-4967-8622-0f5ca4be74cc:Screenshot_2025-05-21_203245.png)
+<img width="395" height="853" alt="Screenshot 2025-05-21 203245" src="https://github.com/user-attachments/assets/21ef2ccd-4cc4-4630-9545-6f92d89427f6" />
 
            臉被遮住口鼻
 
-![Screenshot 2025-05-21 203159.png](attachment:95b258eb-6cf9-421b-a5a8-d35694df559a:6076a041-43db-4990-ad40-1da397369c4c.png)
+<img width="390" height="842" alt="Screenshot 2025-05-21 203159" src="https://github.com/user-attachments/assets/15066b3f-c479-4d5f-851c-512ef996cd9e" />
 
               臉全被遮住
 
 (2)實作成果：
 
-![image.png](attachment:4b831c5b-5eb0-4f4d-9a83-0a37873dd6d1:e43e0be2-763d-4dcd-8b12-cb0b1a95029b.png)
+<img width="963" height="761" alt="image (2)" src="https://github.com/user-attachments/assets/067efefe-8958-4690-a772-e1771e3bfd98" />
 
-          dangerous
+       dangerous
 
   無偵測到人(小孩不在)
-
-![image.png](attachment:c375c835-c622-4b29-8cdd-d9564fbfb031:image.png)
+  
+<img width="735" height="695" alt="image (9)" src="https://github.com/user-attachments/assets/c36de3a8-7b44-4377-bb9c-180059b7a101" />
 
    LED亮，蜂鳴器響起
 
