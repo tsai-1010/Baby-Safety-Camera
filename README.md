@@ -66,7 +66,7 @@ libcamera-hello
 libcamera-jpeg -o test.jpg
 ```
 
-## **步驟 7：建立並啟用虛擬環境
+## **步驟 7：建立並啟用虛擬環境**
 
 ```bash
 sudo apt-get update
@@ -78,7 +78,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-## **步驟 8：安裝必要套件
+## **步驟 8：安裝必要套件**
 
 ```bash
 #在虛擬環境中安裝
@@ -90,7 +90,7 @@ pip install tflite-runtime
 pip list
 ```
 
-## **步驟 9：建立影像訓練集
+## **步驟 9：建立影像訓練集**
 
 - 到[https://teachablemachine.withgoogle.com/官網](https://teachablemachine.withgoogle.com/train)
 
@@ -101,7 +101,7 @@ pip list
 - 由MobaXterm傳輸，將模型放在之後要撰寫的程式資料夾中
 - `model_u2.tflite`( 模型檔）以及 `labels2.txt`（標籤檔）
 
-## **步驟 10：編譯程式並**執行測試
+## **步驟 10：編譯程式並執行測試**
 
 執行編譯的程式檔`face.py` 
 
