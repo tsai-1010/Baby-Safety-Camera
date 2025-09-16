@@ -2,9 +2,7 @@
 
 | 學期 | 112學年度第2學期 | 授課教師 | 李棟村 |
 | --- | --- | --- | --- |
-| 學號 | B1121004 | 姓名 | 蔡毅  |
-         B1142050         吳聿鎧 |
- |
+| 學號 | B1121004 B1142050 | 姓名 | 蔡毅 吳聿鎧 |
 1. 專題題目：寶寶安全相機
 2. 功能：主要就是可以偵測人臉的部位,利用樹梅派相機模組,抓取嬰幼兒臉部部分，眼睛、鼻子等部位,判斷出危險時自動發出警訊，例如：臉被遮住。
 3. 實做平台：樹莓派
@@ -121,11 +119,11 @@ python3 face.py
 
 <img width="395" height="853" alt="Screenshot 2025-05-21 203245" src="https://github.com/user-attachments/assets/21ef2ccd-4cc4-4630-9545-6f92d89427f6" />
 
-           臉被遮住口鼻
+            臉被遮住口鼻
 
 <img width="390" height="842" alt="Screenshot 2025-05-21 203159" src="https://github.com/user-attachments/assets/15066b3f-c479-4d5f-851c-512ef996cd9e" />
 
-              臉全被遮住
+            臉全被遮住
 
 (2)實作成果：
 
@@ -135,35 +133,35 @@ python3 face.py
 
   無偵測到人(小孩不在)
   
-<img width="735" height="695" alt="image (9)" src="https://github.com/user-attachments/assets/c36de3a8-7b44-4377-bb9c-180059b7a101" />
+<img width="747" height="701" alt="image (6)" src="https://github.com/user-attachments/assets/9763a7c9-421f-48ce-9c1a-ac6c51489cc8" />
 
    LED亮，蜂鳴器響起
 
-![image.png](attachment:40c55a45-197f-4f20-a774-f8ca8e6025e5:image.png)
+<img width="898" height="708" alt="image (3)" src="https://github.com/user-attachments/assets/f8641c6b-e5f3-48c1-8952-0dde4019a9a2" />
 
-                  safe
+          safe
 
-![image.png](attachment:b6674654-caec-4af6-b1dd-37c5a9ef1857:image.png)
+<img width="736" height="698" alt="image (7)" src="https://github.com/user-attachments/assets/37c1245f-2f04-4ceb-99c7-9f1e8e8819aa" />
+
 
       LED暗，蜂鳴器安靜
 
-![image.png](attachment:62b6635e-1f08-44c4-9412-fac48d579a89:image.png)
+<img width="902" height="708" alt="image (4)" src="https://github.com/user-attachments/assets/6472c680-30bb-4a43-924c-a1c14d801701" />
 
          dangerous
+     mouth/nose covered
 
-   mouth/nose covered
+<img width="735" height="695" alt="image (8)" src="https://github.com/user-attachments/assets/664b0738-5680-479f-b905-8ada2cdcb962" />
 
-![image.png](attachment:b4fcbed0-ad6f-40f6-b88f-25955e544a99:image.png)
 
    LED亮，蜂鳴器響起
 
-![image.png](attachment:7453b183-6717-4b81-8f50-8ffb0811de4c:image.png)
+<img width="875" height="665" alt="image (5)" src="https://github.com/user-attachments/assets/288790cf-d201-49c2-ab3e-f0eb1b7adf5f" />
 
            dangerous
-
          fully covered
 
-![image.png](attachment:b4fcbed0-ad6f-40f6-b88f-25955e544a99:image.png)
+<img width="735" height="695" alt="image (9)" src="https://github.com/user-attachments/assets/0ec80744-7ed6-463f-9fd3-4c6f5a4f3978" />
 
    LED亮，蜂鳴器響起
 
