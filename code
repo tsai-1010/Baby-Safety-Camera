@@ -1,0 +1,148 @@
+mport cv2
+import numpy as np
+import tensorflow as tf
+import mediapipe as mp
+import RPi.GPIO as GPIO
+import time
+
+def load_labels(label_path):
+    with open(label_path, 'r', encoding='utf-8') as f:
+        return [line.strip().split(" ", 1)[1] for line in f.readlines()]
+
+def preprocess(frame, input_shape):
+    height, width = input_shape[1], input_shape[2]
+    resized = cv2.resize(frame, (width, height))
+    normalized = resized.astype(np.float32) / 255.0
+    return np.expand_dims(normalized, axis=0)
+
+def predict_image(interpreter, input_details, output_details, image):
+    interpreter.set_tensor(input_details[0]['index'], image)
+    interpreter.invoke()
+    output_data = interpreter.get_tensor(output_details[0]['index'])[0]
+    return output_data
+
+def setup_gpio():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(17, GPIO.OUT)  # Red LED  (3.3V)
+    GPIO.setup(27, GPIO.OUT)  # Buzzer
+
+def alert_on():
+    GPIO.output(17, GPIO.HIGH)  # LED ON
+    GPIO.output(27, GPIO.HIGH)  # Buzzer ON
+
+def alert_off():
+    GPIO.output(17, GPIO.LOW)  # LED off
+    GPIO.output(27, GPIO.LOW)  # Buzzer off
+
+def main():
+    MODEL_PATH = "model_u2.tflite"
+    LABEL_PATH = "labels2.txt"
+
+    labels = load_labels(LABEL_PATH)
+
+    label_map = {
+        "臉沒被遮住": "Safe",
+        "被遮住口鼻": "Mouth/Nose Covered",
+        "臉全被遮住": "Fully Covered"
+    }
+
+    setup_gpio()
+    alert_off()
+
+    interpreter = tf.lite.Interpreter(model_path=MODEL_PATH)
+    interpreter.allocate_tensors()
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+    input_shape = input_details[0]['shape']
+
+    mp_face_detection = mp.solutions.face_detection
+    face_detection = mp_face_detection.FaceDetection(model_selection=0, min_detection_confidence=0.5)
+
+    cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+    if not cap.isOpened():
+        print("Cannot open camera")
+        return
+
+    print("Face covering detection started. Press 'q' to quit.")
+
+    alert_active = False
+    alert_start_time = 0
+
+    try:
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("Failed to grab frame")
+                break
+
+            rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            results = face_detection.process(rgb_frame)
+
+            detected = False
+            dangerous = False
+
+            if results.detections:
+                for detection in results.detections:
+                    detected = True
+                    bbox = detection.location_data.relative_bounding_box
+                    ih, iw, _ = frame.shape
+                    x = int(bbox.xmin * iw)
+                    y = int(bbox.ymin * ih)
+                    w = int(bbox.width * iw)
+                    h = int(bbox.height * ih)
+
+                    x, y = max(0, x), max(0, y)
+                    face_img = frame[y:y+h, x:x+w]
+
+                    if face_img.size == 0:
+                        continue
+
+                    input_data = preprocess(face_img, input_shape)
+                    prediction = predict_image(interpreter, input_details, output_details, input_data)
+
+                    class_id = int(np.argmax(prediction))
+                    confidence = float(prediction[class_id])
+                    label_cn = labels[class_id]
+                    label_en = label_map.get(label_cn, "Unknown")
+
+                    # 危險情況: class_id 為 1 或 2
+                    if class_id in [1, 2]:
+                        dangerous = True
+
+                    color = (0, 255, 0) if class_id == 0 else (0, 165, 255)
+                    if class_id == 2:
+                        color = (0, 0, 255)
+
+                    cv2.rectangle(frame, (x, y), (x + w, y + h), color, 2)
+                    cv2.putText(frame, f"{label_en} ({confidence:.2f})", (x, y - 10),
+                                cv2.FONT_HERSHEY_SIMPLEX, 0.8, color, 2)
+            else:
+                dangerous = True  # 無偵測視為危險
+
+            current_time = time.time()
+
+            if dangerous:
+                if not alert_active:
+                    alert_on()
+                    alert_start_time = current_time
+                    alert_active = True
+                cv2.putText(frame, "Dangerous!", (30, 50),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0, 0, 255), 3)
+                            
+            if alert_active and (current_time - alert_start_time >= 10):
+                alert_off()
+                alert_active = False
+
+            cv2.imshow("Face Cover Detection", frame)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    finally:
+        cap.release()
+        cv2.destroyAllWindows()
+        alert_off()
+        GPIO.cleanup()
+
+if __name__ == "__main__":
+    main()
