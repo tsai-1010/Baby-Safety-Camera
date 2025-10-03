@@ -39,6 +39,7 @@ sudo nano /boot/firmware/config.txt
 在檔案底部新增：
 
 camera_auto_detect=1  //允許自動偵測 Raspberry Pi Camera
+
 dtoverlay=vc4-kms-v3d  //啟用新的影像驅動程式
 
 ## **步驟 4：重新啟動 Raspberry Pi**
