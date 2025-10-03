@@ -12,8 +12,8 @@
 
 <img width="1918" height="1078" alt="image" src="https://github.com/user-attachments/assets/2b902006-f9f1-45f5-a272-f27a7e78e785" />
 
-1. 軟硬體設計：樹莓派、相機、LED、蜂鳴器
-2. 環境安裝、執行步驟：
+6. 軟硬體設計：樹莓派、相機、LED、蜂鳴器
+7. 環境安裝、執行步驟：
 
 ## **步驟 1：確保系統已更新**
 
@@ -111,7 +111,7 @@ vim face.py
 python3 face.py
 ```
 
-1. 實體照片、執行畫面：
+8. 實體照片、執行畫面：
 
 (1)訓練模型畫面：
 
